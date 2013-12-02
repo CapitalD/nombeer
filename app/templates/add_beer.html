@@ -1,0 +1,14 @@
+{% extends "layout.html" %}
+{% block body %}
+{% from "_formhelpers.html" import render_field %}
+<h2>Add a Beer</h2>
+  <form action="{{ url_for('add_beer') }}" method="post" class="add_beer">
+    <dl>
+        {{ render_field(form.name) }}
+        {{ render_field(form.kegged_date, class="datepicker") }}
+        {{ render_field(form.abv) }}
+        {{ render_field(form.ibu) }}
+    </dl>
+    <p><input type="submit" value="Add Beer" /></p>
+  </form>
+{% endblock %}

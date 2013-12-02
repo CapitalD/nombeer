@@ -1,0 +1,13 @@
+{% extends "layout.html" %}
+{% block body %}
+<p><a href="{{ url_for('add_beer') }}">Add Beer</a></p>
+<ul class="beers">
+{% for beer in beers %}
+<li class="clearfix"><img src="http://placehold.it/100" /><h2 class="beer_name">{{ beer.name }}</h2>
+<span class="kegged_date">{{ beer.kegged_date|datetimeformat }}</span>
+<br /><span class="abv">ABV: {{ beer.abv }}%</span>
+<br /><span class="ibu">IBU: {{ beer.ibu }}</span></li>
+{% else %}
+<li>No beers yet</li>
+{% endfor %}
+{% endblock %}
