@@ -16,34 +16,34 @@ class Brew(db.Model):
     batch_size = db.Column(db.Float)
     abv = db.Column(db.Float)
     ibu = db.Column(db.Integer)
-    kegs = db.relationship('Keg', backref='keg', lazy='dynamic')
+    kegs = db.relationship('Keg', backref='brew', lazy='dynamic')
 
     def __repr__(self):
         return '<Brew %r>' % (self.id)
 
 class Keg(db.Model):
     id = db.Column(db.Integer, primary_key=True)
-    brew_id = db.Column(db.Integer, db.ForeignKey('brew_id'))
+    brew_id = db.Column(db.Integer, db.ForeignKey('brew.id'))
     kegged_date = db.Column(db.Integer)
     volume = db.Column(db.Float)
-    taps = db.relationship('Tap', backref='tap', lazy='dynamic')
+    taps = db.relationship('Tap', backref='keg', lazy='dynamic')
 
     def __repr__(self):
         return '<Keg %r>' % (self.id)
 
-class Tap(db.Model)
+class Tap(db.Model):
     id = db.Column(db.Integer, primary_key=True)
-    keg_id = db.Column(db.Integer, db.ForeignKey('keg_id'))
-    location_id = db.Column(db.Integer, db.ForeignKey('location_id'))
+    keg_id = db.Column(db.Integer, db.ForeignKey('keg.id'))
+    location_id = db.Column(db.Integer, db.ForeignKey('location.id'))
     identifier = db.Column(db.String)
 
     def __repr__(self):
-        return '<Tap %r>' % (self.identifer)
+        return '<Tap %r>' % (self.identifier)
 
 class Location(db.Model):
     id = db.Column(db.Integer, primary_key=True)
     name = db.Column(db.String(120))
+    taps = db.relationship('Tap', backref='location', lazy='dynamic')
     
-
     def __repr__(self):
         return '<Location %r>' % (self.name)
