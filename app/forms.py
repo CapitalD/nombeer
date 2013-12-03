@@ -12,3 +12,8 @@ class AddBeerForm(Form):
     ibu = IntegerField('IBU', [
         validators.NumberRange(min=0, max=1000)
     ])
+
+class AddLocationForm(Form):
+    name = TextField('Name', [
+        validators.InputRequired()
+    ])

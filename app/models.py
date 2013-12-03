@@ -9,3 +9,10 @@ class Beer(db.Model):
 
     def __repr__(self):
         return '<Beer %r>' % (self.name)
+
+class Location(db.Model):
+    id = db.Column(db.Integer, primary_key=True)
+    name = db.Column(db.String(120))
+
+    def __repr__(self):
+        return '<Location %r>' % (self.name)

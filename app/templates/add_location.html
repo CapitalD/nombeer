@@ -1,0 +1,11 @@
+{% extends "layout.html" %}
+{% block body %}
+{% from "_formhelpers.html" import render_field %}
+<h2>Add a Location</h2>
+  <form action="{{ url_for('add_location') }}" method="post" class="add_locataion">
+    <dl>
+        {{ render_field(form.name) }}
+    </dl>
+    <p><input type="submit" value="Add Location" /></p>
+  </form>
+{% endblock %}

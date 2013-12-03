@@ -1,0 +1,9 @@
+{% extends "layout.html" %}
+{% block body %}
+<ul class="locations">
+{% for location in locations %}
+<li class="clearfix"><h2 class="location_name">{{ location.name }}</h2></li>
+{% else %}
+<li>No locations yet</li>
+{% endfor %}
+{% endblock %}
