@@ -1,0 +1,16 @@
+{% extends "layout.html" %}
+{% block body %}
+<h2>{{ keg.brew.beer.name }}</h2>
+<div id="beer_info">
+    <span id="description">{{ keg.brew.beer.description }}</span>
+    <br /><span id="abv">{{ keg.brew.abv }}% by volume</span>
+    <br /><span id="ibu">{{ keg.brew.ibu }} IBU</span>
+</div>
+
+<div id="batch_info">
+    <span id="batch_number">Batch: {{ keg.brew.id }}</span>
+    <br /><span id="batch_date">Brewed: {{ keg.brew.brew_date|datetimeformat }}</span>
+    <br /><span id="kegged_date">Packaged: {{ keg.kegged_date|datetimeformat }}</span>
+</div>
+
+{% endblock %}

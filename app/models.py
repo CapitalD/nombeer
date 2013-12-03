@@ -40,6 +40,11 @@ class Tap(db.Model):
     def __repr__(self):
         return '<Tap %r>' % (self.identifier)
 
+    def is_pouring(self):
+        if self.keg:
+            return True
+        return False
+
 class Location(db.Model):
     id = db.Column(db.Integer, primary_key=True)
     name = db.Column(db.String(120))

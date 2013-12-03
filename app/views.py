@@ -1,12 +1,17 @@
 from flask import render_template, flash, redirect, session, url_for, request, g
 from app import app, db
+from models import Beer, Brew, Keg, Tap, Location
 from forms import AddBeerForm, AddLocationForm
-from models import Beer, Location
 
 @app.route('/')
 def index():
     return render_template('index.html')
     
+@app.route('/beer/<int:keg_id>')
+def show_beer(keg_id):
+    selected_beer = Keg.query.filter_by(id = keg_id).first_or_404()
+    return render_template('show_beer.html', keg=selected_beer) 
+
 @app.route('/list')
 def list_beers():
     beers = Beer.query.order_by(Beer.kegged_date.desc()).all()
