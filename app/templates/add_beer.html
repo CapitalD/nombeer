@@ -5,7 +5,7 @@
   <form action="{{ url_for('add_beer') }}" method="post" class="add_beer">
     <dl>
         {{ render_field(form.name) }}
-        {{ render_field(form.kegged_date, class="datepicker") }}
+        {{ render_field(form.kegged_date) }}
         {{ render_field(form.abv) }}
         {{ render_field(form.ibu) }}
     </dl>
