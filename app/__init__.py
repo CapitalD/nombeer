@@ -1,10 +1,12 @@
 from flask import Flask, request, session, g, redirect, url_for, abort, render_template, flash
 from flask.ext.sqlalchemy import SQLAlchemy
+from flask.ext.bootstrap import Bootstrap
 import datetime
 
 app = Flask(__name__)
 app.config.from_object('config')
 db = SQLAlchemy(app)
+Bootstrap(app)
 
 from app import views, models
 

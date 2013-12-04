@@ -1,22 +1,12 @@
-<!doctype html>
-<html lang="en">
-<head>
-    <meta charset="utf-8" />
-    <title>NOM Beer</title>
-    <link rel="stylesheet" type="text/css" href="{{ url_for('static', filename='style.css') }}">
-    <script type="text/javascript" src="{{ url_for('static', filename='jquery.js') }}"></script>
-
-    <script type="text/javascript">
-        $SCRIPT_ROOT = {{ request.script_root|tojson|safe }};
-    </script>
-</head>
-<body>
-<div class=page>
+{% extends "bootstrap/base.html" %}
+{% block title %}NOM Beer{% endblock %}
+{% block html_attribs %} lang="en" {% endblock %}
+{% block content %}
+<div class="container">
   <h1>NOM Beer</h1>
   {% for message in get_flashed_messages() %}
     <div class="flash">{{ message }}</div>
   {% endfor %}
   {% block body %}{% endblock %}
 </div>
-</body>
-</html>
+{% endblock %}
