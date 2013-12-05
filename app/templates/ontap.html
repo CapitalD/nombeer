@@ -5,6 +5,9 @@
 at {{location}}
 {% endif %}</h2>
 {% for on_tap in pouring %}
-<p>{{ on_tap.brew.beer.name }} ({{ on_tap.taps[0].location.name }})</p>
+<p>{{ on_tap.brew.beer.name }}
+{% if not location %}
+ ({{ on_tap.taps[0].location.name }})
+{% endif %}</p>
 {% endfor %}
 {% endblock %}
