@@ -1,17 +1,21 @@
 from flask.ext.wtf import Form
-from wtforms import Form, TextField, FloatField, DateField, IntegerField, validators
+from wtforms import Form, TextField, FloatField, DateField, IntegerField, SelectField, validators
 
-class AddBeerForm(Form):
-    name = TextField('Name', [
+class BrewdayForm(Form):
+    brew_date = DateField('Brew Date')
+    select_beer = SelectField('Beer', coerce=int)
+    beer_name = TextField('Beer Name', [
         validators.InputRequired()
     ])
-    kegged_date = DateField('Date Kegged')
+    beer_desc = TextField('Description')
+    batch_size = FloatField('Batch Size')
     abv = FloatField('ABV', [
         validators.NumberRange(min=0, max=100)
     ])
     ibu = IntegerField('IBU', [
         validators.NumberRange(min=0, max=1000)
     ])
+
 
 class AddLocationForm(Form):
     name = TextField('Name', [

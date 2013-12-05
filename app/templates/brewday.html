@@ -6,7 +6,7 @@
 {% endblock %}
 {% block script_ready %}
     {{ super() }}
-    $("#kegged_date").datepicker({
+    $(".datepicker").datepicker({
         format: "yyyy-mm-dd",
         weekStart: 1,
         keyboardNavigation: false,
@@ -16,14 +16,17 @@
 
 {% block body %}
 {% from "_formhelpers.html" import render_field %}
-<h2>Add a Beer</h2>
-  <form action="{{ url_for('add_beer') }}" method="post" class="add_beer">
+<h2>Brewday</h2>
+  <form action="{{ url_for('brewday') }}" method="post">
     <dl>
-        {{ render_field(form.name) }}
-        {{ render_field(form.kegged_date) }}
+        {{ render_field(form.brew_date, class="datepicker") }}
+        {{ render_field(form.select_beer) }}
+        {{ render_field(form.beer_name) }}
+        {{ render_field(form.beer_desc) }}
+        {{ render_field(form.batch_size) }}
         {{ render_field(form.abv) }}
         {{ render_field(form.ibu) }}
     </dl>
-    <p><input type="submit" value="Add Beer" /></p>
+    <p><input type="submit" value="Add Brewday" /></p>
   </form>
 {% endblock %}
