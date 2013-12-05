@@ -26,6 +26,7 @@ def list_ontap_at_location(location_id):
 def brewday():
     form = BrewdayForm(request.form)
     form.select_beer.choices = [(beer.id, beer.name) for beer in Beer.query.order_by('name')]
+    form.select_beer.choices.append([0, "Add new..."])
     if request.method == 'POST' and form.validate(): 
         brew = Brew(brew_date = form.brew_date.data.strftime('%s'), batch_size = form.batch_size.data, abv = form.abv.data, ibu=form.ibu.data)
         if form.beer_name:

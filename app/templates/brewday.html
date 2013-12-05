@@ -12,21 +12,31 @@
         keyboardNavigation: false,
         todayHighlight: true
     });
+
+    $("#select_beer").change(function() {
+        if ($("#select_beer option:selected").val() == 0) {
+            $("#new_beer_fields").removeAttr("disabled");
+            $("#beer_name").focus();
+        } else {
+            $("#new_beer_fields").attr("disabled", "disabled");
+            $("#new_beer_fields input").val("");
+        }
+    });
 {% endblock %}
 
 {% block body %}
 {% from "_formhelpers.html" import render_field %}
 <h2>Brewday</h2>
-  <form action="{{ url_for('brewday') }}" method="post">
-    <dl>
-        {{ render_field(form.brew_date, class="datepicker") }}
-        {{ render_field(form.select_beer) }}
-        {{ render_field(form.beer_name) }}
-        {{ render_field(form.beer_desc) }}
-        {{ render_field(form.batch_size) }}
-        {{ render_field(form.abv) }}
-        {{ render_field(form.ibu) }}
-    </dl>
-    <p><input type="submit" value="Add Brewday" /></p>
+  <form action="{{ url_for('brewday') }}" method="post" role="form">
+    {{ render_field(form.brew_date, class="datepicker form-control", placeholder="Brew Date") }}
+    {{ render_field(form.select_beer) }}
+    <fieldset id="new_beer_fields" disabled>
+        {{ render_field(form.beer_name, placeholder="Beer name") }}
+        {{ render_field(form.beer_desc, placeholder="A short description") }}
+    </fieldset>
+    {{ render_field(form.batch_size, placeholder="Batch Size (litres)") }}
+    {{ render_field(form.abv, placeholder="% ABV") }}
+    {{ render_field(form.ibu, placeholder="IBU") }}
+    <p><input type="submit" class="btn btn-default" value="Add Brewday" /></p>
   </form>
 {% endblock %}
