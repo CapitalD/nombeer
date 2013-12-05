@@ -12,7 +12,7 @@ def show_beer(keg_id):
     selected_beer = Keg.query.filter_by(id = keg_id).first_or_404()
     return render_template('show_beer.html', keg=selected_beer) 
 
-@app.route('/ontap')
+@app.route('/ontap/')
 def list_ontap():
     pouring = Keg.query.join(Tap, (Tap.keg_id == Keg.id)).all()
     return render_template('ontap.html', pouring=pouring)
@@ -20,7 +20,7 @@ def list_ontap():
 @app.route('/ontap/<int:location_id>')
 def list_ontap_at_location(location_id):
     pouring = Keg.query.join(Tap, (Tap.keg_id == Keg.id)).filter(Tap.location_id == location_id).all()
-    loc_name = Location.query.get(location_id).name
+    loc_name = Location.query.filter_by(id = location_id).first_or_404()
     return render_template('ontap.html', pouring=pouring, location=loc_name)
 
 #@app.route('/list')

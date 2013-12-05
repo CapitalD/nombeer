@@ -2,7 +2,7 @@
 {% block content %}
 <h2>On Tap
 {% if location %}
-at {{location}}
+at {{location.name}}
 {% endif %}</h2>
 {% for on_tap in pouring %}
 <p>{{ on_tap.brew.beer.name }}
