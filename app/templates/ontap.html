@@ -1,0 +1,7 @@
+{% extends "layout.html" %}
+{% block content %}
+<h2>On Tap</h2>
+{% for on_tap in pouring %}
+<p>{{ on_tap.brew.beer.name }} ({{ on_tap.taps[0].location.name }})</p>
+{% endfor %}
+{% endblock %}

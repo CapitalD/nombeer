@@ -1,12 +1,27 @@
-{% extends "bootstrap/base.html" %}
-{% block title %}NOM Beer{% endblock %}
-{% block html_attribs %} lang="en" {% endblock %}
-{% block content %}
-<div class="container">
-  <h1>NOM Beer</h1>
-  {% for message in get_flashed_messages() %}
-    <div class="flash">{{ message }}</div>
-  {% endfor %}
-  {% block body %}{% endblock %}
-</div>
-{% endblock %}
+<!DOCTYPE html>
+<html lang="en">
+    <head>{% block head %}
+        <link type="text/css" rel="stylesheet" media="screen" href="{{ url_for('static', filename='css/bootstrap.min.css') }}"/>
+        <link type="text/css" rel="stylesheet" media="screen" href="{{ url_for('static', filename='css/bootstrap-theme.min.css') }}"/>
+        <script type="text/javascript" src="{{ url_for('static', filename='js/jquery.min.js') }}"></script>
+        <script type="text/javascript" src="{{ url_for('static', filename='js/bootstrap.min.js') }}"></script>
+        <script type="text/javascript">
+            $(document).ready(function() {
+                {% block script_ready %}{% endblock %}
+            });
+        </script>
+        <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    {% endblock %}
+    </head>
+
+    <body>
+        {% block content %}
+        <div class="container">
+          {% for message in get_flashed_messages() %}
+            <div class="flash">{{ message }}</div>
+          {% endfor %}
+          {% block body %}{% endblock %}
+        </div>
+        {% endblock %}
+    </body>
+</html>

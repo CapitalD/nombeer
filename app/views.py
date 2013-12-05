@@ -12,6 +12,11 @@ def show_beer(keg_id):
     selected_beer = Keg.query.filter_by(id = keg_id).first_or_404()
     return render_template('show_beer.html', keg=selected_beer) 
 
+@app.route('/ontap')
+def list_ontap():
+    pouring = Keg.query.join(Tap, (Tap.keg_id) == Keg.id).all()
+    return render_template('ontap.html', pouring=pouring)
+
 @app.route('/list')
 def list_beers():
     beers = Beer.query.order_by(Beer.kegged_date.desc()).all()

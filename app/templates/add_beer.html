@@ -1,4 +1,19 @@
 {% extends "layout.html" %}
+{% block head %}
+    {{ super() }}
+    <script type="text/javascript" src="{{ url_for('static', filename='js/bootstrap-datepicker.js') }}"></script>
+    <link rel="stylesheet" type="text/css" href="{{ url_for('static', filename='css/datepicker.css') }}" />
+{% endblock %}
+{% block script_ready %}
+    {{ super() }}
+    $("#kegged_date").datepicker({
+        format: "yyyy-mm-dd",
+        weekStart: 1,
+        keyboardNavigation: false,
+        todayHighlight: true
+    });
+{% endblock %}
+
 {% block body %}
 {% from "_formhelpers.html" import render_field %}
 <h2>Add a Beer</h2>
