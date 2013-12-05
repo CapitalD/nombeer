@@ -52,3 +52,47 @@ class Location(db.Model):
     
     def __repr__(self):
         return '<Location %r>' % (self.name)
+
+    def number_of_taps(self):
+        return len(self.taps.all())
+
+    def column_span(self):
+        req_taps = self.number_of_taps()
+        for case in switch(req_taps):
+            if case(1):
+                return 12
+                break
+            if case(2):
+                return 6
+                break
+            if case(3):
+                return 4
+                break
+            if case(4):
+                return 3
+                break
+            if case(6):
+                return 2
+                break
+            if case():
+                return 12
+
+class switch(object):
+    def __init__(self, value):
+        self.value = value
+        self.fall = False
+
+    def __iter__(self):
+        """Return the match method once, then stop"""
+        yield self.match
+        raise StopIteration
+    
+    def match(self, *args):
+        """Indicate whether or not to enter a case suite"""
+        if self.fall or not args:
+            return True
+        elif self.value in args: # changed for v1.5, see below
+            self.fall = True
+            return True
+        else:
+            return False

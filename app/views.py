@@ -19,9 +19,8 @@ def list_ontap():
 
 @app.route('/ontap/<int:location_id>')
 def list_ontap_at_location(location_id):
-    pouring = Keg.query.join(Tap, (Tap.keg_id == Keg.id)).filter(Tap.location_id == location_id).all()
-    loc_name = Location.query.filter_by(id = location_id).first_or_404()
-    return render_template('ontap.html', pouring=pouring, location=loc_name)
+    selected_location = Location.query.filter_by(id = location_id).first_or_404()
+    return render_template('ontap.html', location=selected_location)
 
 #@app.route('/list')
 #def list_beers():

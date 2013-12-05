@@ -1,0 +1,18 @@
+h1 {
+    margin: 1em;
+}
+
+.tap_label {
+    border: 1px solid #000;
+    max-width: 700px;
+    height: 100%;
+}
+
+.tap_label .abv {
+    font-size: 5em;
+}
+
+.tap_label #abv_description {
+    font-size: 0.2em;
+    color: #666;
+}

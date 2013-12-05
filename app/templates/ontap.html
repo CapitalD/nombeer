@@ -1,13 +1,39 @@
 {% extends "layout.html" %}
 {% block content %}
-<h2>On Tap
+<h1>On Tap
 {% if location %}
 at {{location.name}}
-{% endif %}</h2>
-{% for on_tap in pouring %}
-<p>{{ on_tap.brew.beer.name }}
+{% endif %}</h1>
+
+<div class="container">
+
+{% if location %}
+<div class="row">
+
+    {% for tap in location.taps.all() %}
+    <div class="col-md-{{ location.column_span() }}">
+        <div class="tap_label">
+        {% if not tap.is_pouring() %}
+            <h2 class="text-center"><small>Nothing</small></h2>
+        {% else %}
+            <h2 class="text-center">{{ tap.keg.brew.beer.name }}</h2>
+            <h3 class="text-center"><small>{{ tap.keg.brew.beer.description }}</small></h3>
+
+            <p class="abv text-center">{{ tap.keg.brew.abv }}<span id="abv_description">%ABV</span></p>
+        {% endif %}
+        </div>
+    </div>
+    {% endfor %}
+
+</div>
+{% endif %}
+
 {% if not location %}
- ({{ on_tap.taps[0].location.name }})
-{% endif %}</p>
-{% endfor %}
+<ul>
+    {% for on_tap in pouring %}
+        <li>{{ on_tap.brew.beer.name }} ({{ on_tap.taps[0].location.name }})</li>
+    {% endfor %}
+</ul>
+{% endif %}
+</div>
 {% endblock %}
