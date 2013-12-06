@@ -21,3 +21,6 @@ class AddLocationForm(Form):
     name = TextField('Name', [
         validators.InputRequired()
     ])
+    tap1_name = TextField('Tap 1', [
+        validators.InputRequired()
+    ])

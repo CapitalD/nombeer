@@ -46,13 +46,13 @@ def brewday():
 #    locations = Location.query.order_by(Location.name).all()
 #    return render_template('list_locations.html', locations=locations)
 
-#@app.route('/add_location', methods=['GET','POST'])
-#def add_location():
-#    form = AddLocationForm(request.form)
-#    if request.method == 'POST' and form.validate():
-#        new_location = Location(name = form.name.data)
-#        db.session.add(new_location)
-#        db.session.commit()
-#        flash('New location was successfully added')
-#        return redirect(url_for('list_locations'))
-#    return render_template('add_location.html', form=form)
+@app.route('/add_location', methods=['GET','POST'])
+def add_location():
+    form = AddLocationForm(request.form)
+    if request.method == 'POST' and form.validate():
+        new_location = Location(name = form.name.data)
+        db.session.add(new_location)
+        db.session.commit()
+        flash('New location was successfully added')
+        return redirect(url_for('list_locations'))
+    return render_template('add_location.html', form=form)
