@@ -1,4 +1,11 @@
 {% extends "layout.html" %}
+{% block title %}
+On Tap
+{% if location %}
+ at {{ location.name }}
+{% endif %}
+{% endblock %}
+
 {% block content %}
 <h1>On Tap
 {% if location %}
@@ -31,7 +38,7 @@ at {{location.name}}
 {% if not location %}
 <ul>
     {% for on_tap in pouring %}
-        <li>{{ on_tap.brew.beer.name }} ({{ on_tap.taps[0].location.name }})</li>
+        <li>{{ on_tap.brew.beer.name }} (<a href="{{ url_for('list_ontap_at_location', location_id=on_tap.taps[0].location.id) }}">{{ on_tap.taps[0].location.name }}</a>)</li>
     {% endfor %}
 </ul>
 {% endif %}
