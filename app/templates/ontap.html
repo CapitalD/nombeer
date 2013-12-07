@@ -6,6 +6,16 @@ On Tap
 {% endif %}
 {% endblock %}
 
+{% block head %}
+{{ super() }}
+<script type="text/javascript" src="{{ url_for('static', filename='js/grids.js') }}"></script>
+{% endblock %}
+
+{% block script_ready %}
+{{ super() }}
+    $('.tap_label').equalHeight();
+{% endblock %}
+
 {% block content %}
 <h1>On Tap
 {% if location %}
@@ -21,12 +31,12 @@ at {{location.name}}
     <div class="col-md-{{ location.column_span() }}">
         <div class="tap_label">
         {% if not tap.is_pouring() %}
-            <h2 class="text-center"><small>Nothing</small></h2>
+            <h2 class="text-center"><small>NOTHING</small></h2>
         {% else %}
             <h2 class="text-center">{{ tap.keg.brew.beer.name }}</h2>
             <h3 class="text-center"><small>{{ tap.keg.brew.beer.description }}</small></h3>
 
-            <p class="abv text-center">{{ tap.keg.brew.abv }}<span id="abv_description">%ABV</span></p>
+            <p class="abv text-center">{{ tap.keg.brew.abv }}<span id="abv_description">%</span></p>
         {% endif %}
         </div>
     </div>
