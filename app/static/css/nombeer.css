@@ -4,9 +4,10 @@ h1 {
 
 .tap_label {
     border: 1px solid #000;
-    max-width: 700px;
+    max-width: 450px;
     height: 100%;
     border-radius: 5px;
+    margin-bottom: 1em;
 }
 
 .tap_label .abv {
@@ -16,4 +17,8 @@ h1 {
 .tap_label #abv_description {
     font-size: 0.3em;
     color: #333;
+}
+
+.input-group {
+    margin-bottom: 15px;
 }

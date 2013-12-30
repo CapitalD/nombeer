@@ -27,10 +27,12 @@
 
 {% block body %}
 {% from "_formhelpers.html" import render_field %}
-<h2>Brewday</h2>
+<h2>New Brewday</h2>
   <form action="{{ url_for('brewday') }}" method="post" role="form">
     {{ render_field(form.brew_date, class="datepicker form-control", placeholder="Brew Date") }}
+    <h3>Choose beer...</h3>
     {{ render_field(form.select_beer) }}
+    <h3>or, add a new beer</h3>
     <fieldset id="new_beer_fields" disabled>
         {{ render_field(form.beer_name, placeholder="Beer name") }}
         {{ render_field(form.beer_desc, placeholder="A short description") }}

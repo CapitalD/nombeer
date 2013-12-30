@@ -1,8 +1,24 @@
 {% extends "layout.html" %}
 {% block title %}Add a location{% endblock %}
 {% block script_ready %}
+    var regex = /^(.*)(\d)+$/i;
+    var cloneIndex = $(".input-group").length +1;
+
     $(".add_tap").bind("click", function() {
-        $("<div class=\"input-group\">Test</div>").insertAfter($(this).parent().parent());
+        $(this).parents(".input-group").clone(true)
+            .appendTo(".tap_group")
+            .attr("id", "tap" + cloneIndex)
+            .find("*").each(function() {
+                var id = this.id || "";
+                var name = this.name || "";
+                var id_match = id.match(regex) || [];
+                var name_match = name.match(regex) || [];
+                if (id_match.length == 3 || name_match.length == 3) {
+                    this.id = id_match[1] + (cloneIndex);
+                    this.name = name_match[1] + (cloneIndex);
+                }
+        });
+        cloneIndex++;
     });
 {% endblock %}
 {% block body %}
@@ -10,12 +26,16 @@
 <h2>Add a Location</h2>
   <form action="{{ url_for('add_location') }}" method="post" role="form">
     {{ render_field(form.name, placeholder="Location Name") }}
-    <div class="input-group">
-        <input type="text" id="tap1" name="tap1" class="form-control" placeholder="Tap Identifier">
-        <span class="input-group-btn">
-            <button class="btn btn-default add_tap" type="button">+</button>
-        </span>
+    <div class="tap_group">
+
+        <h3>Taps</h3>
+        <div class="input-group" id="tap1">
+            <input type="text" id="tap_name1" name="tap_name1" class="form-control" placeholder="Tap name (e.g. Left/Right)">
+            <span class="input-group-btn">
+                <button class="btn btn-default add_tap" type="button">+</button>
+            </span>
+        </div>
     </div>
-    <p><input type="submit" value="Add Location" class="btn btn-default" /></p>
+    <div><input type="submit" value="Add Location" class="btn btn-default" /></div>
   </form>
 {% endblock %}

@@ -2,6 +2,7 @@ from flask import render_template, flash, redirect, session, url_for, request, g
 from app import app, db
 from models import Beer, Brew, Keg, Tap, Location
 from forms import BrewdayForm, AddLocationForm
+from sqlalchemy import func
 
 @app.route('/')
 def index():
@@ -14,13 +15,13 @@ def show_beer(keg_id):
 
 @app.route('/ontap/')
 def list_ontap():
-    pouring = Keg.query.join(Tap, (Tap.keg_id == Keg.id)).all()
-    return render_template('ontap.html', pouring=pouring)
+    kegs = Keg.query.filter(Keg.tap != None).all()
+    return render_template('ontap.html', kegs=kegs)
 
 @app.route('/ontap/<int:location_id>')
 def list_ontap_at_location(location_id):
     selected_location = Location.query.filter_by(id = location_id).first_or_404()
-    return render_template('ontap.html', location=selected_location)
+    return render_template('ontap_at.html', location=selected_location)
 
 @app.route('/brewday/', methods=['GET','POST'])
 def brewday():
@@ -40,11 +41,6 @@ def brewday():
         flash('Brewday was successfully added')
         return redirect(url_for('brewday')) 
     return render_template('brewday.html', form=form)
-
-#@app.route('/locations')
-#def list_locations():
-#    locations = Location.query.order_by(Location.name).all()
-#    return render_template('list_locations.html', locations=locations)
 
 @app.route('/add_location', methods=['GET','POST'])
 def add_location():

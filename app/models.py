@@ -26,7 +26,7 @@ class Keg(db.Model):
     brew_id = db.Column(db.Integer, db.ForeignKey('brew.id'))
     kegged_date = db.Column(db.Integer)
     volume = db.Column(db.Float)
-    taps = db.relationship('Tap', backref='keg', lazy='dynamic')
+    tap = db.relationship('Tap', backref='keg', uselist=False)
 
     def __repr__(self):
         return '<Keg %r>' % (self.id)
