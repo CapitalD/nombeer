@@ -1,0 +1,34 @@
+{% extends "layout.html" %}
+{% block title %}Packaging Day{% endblock %}
+{% block script_ready %}
+    update_beer_info();
+
+    function update_beer_info() {
+        $.getJSON($SCRIPT_ROOT + '/_get_brew_packaging_info', {
+            b: $("#select_brew").val()
+        }, function(data) {
+            $("#brew_date").html(data.brew_date);
+            $("#brew_abv").html(data.abv);
+            $("#brew_volume").html(data.batch_size);
+        });
+        return false;
+    }
+
+    $("#select_brew").bind("change", function() {
+        update_beer_info();
+    });
+{% endblock %}
+{% block body %}
+    {% from "_formhelpers.html" import render_field %}
+    <h2>Packaging Day</h2>
+    <form action="{{ url_for('packday') }}" method="post" role="form">
+        <h3>Beer to package</h3>
+        {{ render_field(form.select_brew) }}
+        <div class="beer_info">
+            <p>Brew Date: <span id="brew_date"></p>
+            <p>ABV: <span id="brew_abv"></span></p>
+            <p>Volume Brewed: <span id="brew_volume"></span></p>
+            <p>Volume Packed: <span id="packed_volume"></span></p>
+        </div>
+    </form>
+{% endblock %}

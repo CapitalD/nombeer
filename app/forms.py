@@ -1,6 +1,9 @@
 from flask.ext.wtf import Form
 from wtforms import Form, TextField, FloatField, DateField, IntegerField, SelectField, validators
 
+class PackdayForm(Form):
+    select_brew = SelectField('Brew', coerce=int)
+
 class BrewdayForm(Form):
     brew_date = DateField('Brew Date')
     select_beer = SelectField('Beer', coerce=int)

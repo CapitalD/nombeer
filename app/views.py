@@ -1,8 +1,9 @@
-from flask import render_template, flash, redirect, session, url_for, request, g
+from flask import render_template, flash, jsonify, redirect, session, url_for, request, g
 from app import app, db
 from models import Beer, Brew, Keg, Tap, Location
-from forms import BrewdayForm, AddLocationForm
+from forms import BrewdayForm, PackdayForm, AddLocationForm
 from sqlalchemy import func
+from datetime import datetime
 
 @app.route('/')
 def index():
@@ -41,6 +42,20 @@ def brewday():
         flash('Brewday was successfully added')
         return redirect(url_for('brewday')) 
     return render_template('brewday.html', form=form)
+
+@app.route('/packday/', methods=['GET','POST'])
+def packday():
+    form = PackdayForm(request.form)
+    form.select_brew.choices = [(brew.id, brew.beer.name) for brew in Brew.query.filter(Brew.kegs == None)]
+    return render_template('packday.html', form=form)
+
+@app.route('/_get_brew_packaging_info')
+def get_brew_packaging_info():
+    brew_id = request.args.get('b', 0, type=int)
+    brew = Brew.query.get(brew_id)
+    brew_date = datetime.fromtimestamp(brew.brew_date).strftime('%Y-%m-%d')
+    return jsonify(brew_date=brew_date, abv=brew.abv, batch_size=brew.batch_size)
+
 
 @app.route('/add_location', methods=['GET','POST'])
 def add_location():

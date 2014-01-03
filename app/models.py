@@ -18,6 +18,11 @@ class Brew(db.Model):
     ibu = db.Column(db.Integer)
     kegs = db.relationship('Keg', backref='brew', lazy='dynamic')
 
+    def is_kegged(self):
+        if self.kegs.count() > 0:
+            return True
+        return False
+
     def __repr__(self):
         return '<Brew %r>' % (self.id)
 
